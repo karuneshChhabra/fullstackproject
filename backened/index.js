@@ -8,10 +8,10 @@ app.get("/",(req,res)=>{
 
 });
 
-app.get("/logging",(req,res)=>{
+app.get("/logging",(req,res) => {
     res.send("You are visting logging route")
   
-  });
+});
 
 app.listen(port,()=>{
     
