@@ -10,7 +10,9 @@ const {authfunction,signin,signup}= require('../controllers/auth')
 
 router.get("/signout",authfunction)
 
-router.post("/signin",
+router.post("/signin",[ 
+    check('email',"email is required").isEmail(),
+check('password',"password is required").isLength({min:1})],
 signin)
 
 router.post("/signup",[
