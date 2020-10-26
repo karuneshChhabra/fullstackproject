@@ -3,12 +3,12 @@ const router=express.Router();
 const {check,validationResult}= require("express-validator")
 
 
-const {authfunction,signin,signup}= require('../controllers/auth')
+const {signOut,signin,signup,isSignedIn,isAdmin}= require('../controllers/auth')
 
 
   
 
-router.get("/signout",authfunction)
+router.post("/signout",signOut)
 
 router.post("/signin",[ 
     check('email',"email is required").isEmail(),
@@ -19,7 +19,16 @@ router.post("/signup",[
     check("name","name should be at least 3 char").isLength({min:3}),  
     check('email',"email is required").isEmail(),
     check('password',"password should be at least 8 char").isLength({min:8})
-   ],signup)
+   ],signup
+)
+
+router.post("/isAdmin",isAdmin)
+
+
+router.get("/testroute", isSignedIn, (req,res)=>{
+    res.json(req.auth);
+
+})
 
 
 module.exports=router;

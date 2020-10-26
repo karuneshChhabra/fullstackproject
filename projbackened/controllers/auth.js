@@ -1,11 +1,14 @@
 const User =require("../models/user")
-const {validationResult}= require("express-validator")
-var expressjwt = require('express-jwt');
+const {validationResult, check}= require("express-validator")
+var expressJwt = require('express-jwt');
 var jwt = require('jsonwebtoken');
+const user = require("../models/user");
 
 
 
-exports.authfunction=(req,res)=>{
+exports.signOut=(req,res)=>{
+    console.log(req);
+    res.clearCookie("token");
     res.json({
         message:"user signout"
     })
@@ -40,6 +43,7 @@ exports.signin=(req,res)=>{
 
     //create token
     var token = jwt.sign({ _id: user._id }, process.env.SECRET);
+
     //add token here
     res.cookie("token",token,{expire:new Date()+9999});
 
@@ -49,6 +53,28 @@ exports.signin=(req,res)=>{
     return res.status(200).json({token,user:{_id,name,email,role}});
 });
 }
+
+//custom middleware
+exports.isAdmin=(req,res,next)=>{
+if(req.profile.role===0){
+    return res.status(403).json({
+        error:"You are not ADMIN, ACCESS  DENIED"
+    })
+}
+next();
+};
+
+//custom middleware
+exports.isAuthenticated=(req,res,next)=>{
+ let checker= req.profile && req.auth && req.profile._id===req.auth._id;
+ if(!checker){
+     return res.status(403).json({
+         error:"ACCESS  DENIED"
+     })
+ }
+ next();   
+}
+
 
 
 exports.signup=(req,res)=>{
@@ -83,3 +109,10 @@ exports.signup=(req,res)=>{
 
    
 }
+
+//protected router (checker for token)
+exports.isSignedIn= expressJwt({
+    secret:process.env.SECRET,
+    userProperty:"auth",
+    algorithms: ['HS256']
+});
