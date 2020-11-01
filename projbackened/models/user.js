@@ -45,7 +45,7 @@ const userSchema = new mongoose.Schema({
 
 
 
-});
+},{timestamps:true});
 
 userSchema.methods={
   authenticate:function(plainPassword){

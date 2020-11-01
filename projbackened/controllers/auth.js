@@ -25,21 +25,17 @@ exports.signin=(req,res)=>{
     }
 
     const {email,password} = req.body;
-
-    User.findOne({email},(err,user)=>{
-       
+    User.findOne({email},(err,user)=>{ 
       if(err || !user){
           return res.status(400).json({
               message:"User email doesn't exist"
           })
       }
-    
     if (!user.authenticate(password)){
         return res.status(400).json({
             message:"Email and password does not match"
         })
     }
-
 
     //create token
     var token = jwt.sign({ _id: user._id }, process.env.SECRET);
@@ -54,7 +50,7 @@ exports.signin=(req,res)=>{
 });
 }
 
-//custom middleware
+//custom middleware 
 exports.isAdmin=(req,res,next)=>{
 if(req.profile.role===0){
     return res.status(403).json({
@@ -66,10 +62,10 @@ next();
 
 //custom middleware
 exports.isAuthenticated=(req,res,next)=>{
- let checker= req.profile && req.auth && req.profile._id===req.auth._id;
+ let checker= req.profile && req.auth && req.profile._id==req.auth._id;
  if(!checker){
      return res.status(403).json({
-         error:"ACCESS  DENIED"
+         error:"ACCESS DENIED"
      })
  }
  next();   
@@ -83,11 +79,7 @@ exports.signup=(req,res)=>{
       return res.status(422).json({
           error:error.array()
       })
-
     }
-   
-
-
     const user=new User(req.body);
 
     user.save((err,user)=>{
@@ -102,12 +94,7 @@ exports.signup=(req,res)=>{
            lastName:user.lastName,
            id:user._id
        }) 
-    
-
     })
-
-
-   
 }
 
 //protected router (checker for token)

@@ -5,13 +5,11 @@ const app =express();
 const bodyParser= require('body-parser');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
-const router = require('./routers/auth');
 const port = process.env.PORT || 8000;
+
+// My routers
 const authRouters= require('./routers/auth');
-
-
-
-
+const userRouters= require('./routers/user');
 
 
 //DB Connect
@@ -33,6 +31,9 @@ app.use(cors())
 //custom middleware
 
 app.use("/api",authRouters);
+
+app.use("/api",userRouters);
+
 
 
 app.listen(port,()=>{
