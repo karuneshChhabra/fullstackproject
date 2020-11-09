@@ -1,4 +1,5 @@
 const User =require("../models/user")
+const Order =require("../models/order")
 
 exports.getUserById=(req,res,next,userId)=>{
 
@@ -33,7 +34,7 @@ exports.getAllUsers=(req,res)=>{
 
 exports.getUser=(req,res)=>{
     //get back here for password
-
+    // we should not show these information, so need to reset it.
     req.profile.salt=undefined,
     req.profile.encry_password=undefined;
     req.profile.createdAt=undefined;
@@ -48,7 +49,7 @@ exports.getUserAndUpdate=(req,res)=>{
         {$set:req.body},
         {new: true, useFindAndModify: false},
 
-        (err,user)=>{
+            (err, user)=>{
                 if (err){
                     return res.status(400).json({
                         error:"You are not authorized to update this user"
@@ -64,3 +65,54 @@ exports.getUserAndUpdate=(req,res)=>{
         )
 
 };
+
+
+exports.userPurchaseList=(req,res)=>{
+     Order.find({user:req.profile._id})
+      .populate("user","_id name").exec((err,order)=>{
+         if(err){
+             return res.status(400).json({
+                 error:"No order in this account"
+             })
+         }
+
+         return res.json(order);
+
+     })
+}
+
+exports.pushOrderInPurchaseList=(req,res)=>{
+      let purchases=[];
+      req.body.order.products.forEach(product => {
+ 
+
+       purchases.push({
+           _id: product._id,
+           name:product.title,
+           description:product.description,
+           category:product.category,
+           quantity:product.quantity,
+           amount:req.body.order.amount,
+           transaction_id:req.body.order.transaction_id
+       });
+
+      });
+
+      //store this in db
+
+      User.findOneAndUpdate(
+          {_id:req.profile._id},
+          {$push:{purchases:purchases}},
+          {new:true,useFindAndModify:false},
+          (err, purchases)=>{
+              if(err){
+                  return res.status(400).json({
+                      error:"unable to save purchase list"
+                  })
+              }
+              next();
+          }
+      )
+      
+
+}
