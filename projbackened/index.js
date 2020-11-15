@@ -10,6 +10,7 @@ const port = process.env.PORT || 8000;
 // My routers
 const authRouters= require('./routers/auth');
 const userRouters= require('./routers/user');
+const categoryRouters= require('./routers/category');
 
 
 //DB Connect
@@ -34,6 +35,7 @@ app.use("/api",authRouters);
 
 app.use("/api",userRouters);
 
+app.use("/api",categoryRouters);
 
 
 app.listen(port,()=>{
