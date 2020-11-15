@@ -54,7 +54,6 @@ userSchema.methods={
        const password = crypto.createHmac('sha256', this.salt)
         .update(plainPassword)
         .digest('hex');
-       console.log(password);
        return password;
 
 
