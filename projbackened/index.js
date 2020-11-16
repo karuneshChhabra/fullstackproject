@@ -11,6 +11,7 @@ const port = process.env.PORT || 8000;
 const authRouters= require('./routers/auth');
 const userRouters= require('./routers/user');
 const categoryRouters= require('./routers/category');
+const productRouters= require('./routers/product');
 
 
 //DB Connect
@@ -37,6 +38,7 @@ app.use("/api",userRouters);
 
 app.use("/api",categoryRouters);
 
+app.use("/api",productRouters);
 
 app.listen(port,()=>{
   console.log(`server is up and running ${port}`)
