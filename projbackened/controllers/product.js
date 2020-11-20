@@ -96,17 +96,17 @@ exports.getAllProducts = (req,res) =>{
     let limit= req.query.limit?parseInt(req.query.limit):8;
     let sortBy=req.query.sortBy?req.query.sortBy:"_id";
 
- Product.find()
+    Product.find()
         .select("-photo")
         .populate("category")
         .sort([[sortBy, "asc"]])
         .limit(limit)
         .exec((err,products)=>{
-   if(err || !products){
+    if(err || !products){
        return res.status(400).json({
            error:"No product found"
        })
-   }
+    }
    return res.json(products);
  });
 
@@ -159,6 +159,41 @@ exports.deleteProduct = (req,res) =>{
         if(err){
             return errorMessageHandler("Product not be deleted")
         }
-        return res.json({message:"product is deleted",product});
+        return res.json({message:"Product is deleted Successfully",product});
     })
+}
+
+
+exports.getAllCategories= (req,res) =>{
+    Product.distinct("category",{},(err,categories)=>{
+        if(err){
+            return errorMessageHandler("No category found");
+        }
+        return res.json(categories);
+
+    });
+}
+
+exports.updateStock=(req,res,next)=>{
+ 
+    let operations=req.body.order.products.map(product=>{
+         return {
+             updateOne:{
+                 filter:{_id:product.id},
+                 update:{$inc:{sold:+product.count,stock:-product.count}
+             }
+         }
+        }
+
+
+    });
+
+    Product.bulkWrite(operations,{},(err,products)=>{
+          if(err){
+              errorMessageHandler("stock not updated");
+          }
+         
+          next();
+    })
+
 }
