@@ -1,7 +1,7 @@
 const express= require("express");
 const router= express.Router();
 
-const {getProductById,getProduct,createProduct}= require("../controllers/product")
+const {getProductById,getProduct,createProduct,getAllProducts,updateProduct,deleteProduct,photo}= require("../controllers/product")
 
 const {isAuthenticated,isAdmin,isSignedIn} = require("../controllers/auth")
 const {getUserById} = require("../controllers/user")
@@ -16,7 +16,16 @@ router.param("productId",getProductById);
 //
 router.get("/product/:productId",getProduct);
 
-router.post("/product/create/:userId",isSignedIn, isAuthenticated,isAdmin,createProduct)
+router.get("/products",getAllProducts);
+
+router.get("/product/photo/:productId",photo);
+
+router.post("/product/create/:userId",isSignedIn, isAuthenticated,isAdmin,createProduct);
+
+router.put("/product/:productId/:userId",isSignedIn, isAuthenticated,isAdmin,updateProduct);
+
+router.delete("/product/:productId/:userId",isSignedIn, isAuthenticated,isAdmin,deleteProduct);
+
 
 
 

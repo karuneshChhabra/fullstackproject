@@ -19,7 +19,7 @@ exports.getProductById=(req,res, next, productId)=>{
 }
 
 exports.getProduct=(req,res)=>{
-    req.product.photo.data=undefined;
+    req.product.photo=undefined;
     return res.json(req.product);
 }
 
@@ -68,7 +68,6 @@ exports.createProduct=(req, res) =>{
 
 
          product.save((err,product)=>{
-             console.log(err);
              if(err || !product){
                  return res.status(400).json({
                      error:"Value not stored in db"
@@ -83,4 +82,83 @@ exports.createProduct=(req, res) =>{
     });
 
 
+}
+
+exports.photo=(req,res,next)=>{
+    if(req.product.photo.data){
+       res.set("Content-Type",req.product.photo.contentType) 
+       return res.send(req.product.photo.data);
+    }
+    next();
+}
+
+exports.getAllProducts = (req,res) =>{
+    let limit= req.query.limit?parseInt(req.query.limit):8;
+    let sortBy=req.query.sortBy?req.query.sortBy:"_id";
+
+ Product.find()
+        .select("-photo")
+        .populate("category")
+        .sort([[sortBy, "asc"]])
+        .limit(limit)
+        .exec((err,products)=>{
+   if(err || !products){
+       return res.status(400).json({
+           error:"No product found"
+       })
+   }
+   return res.json(products);
+ });
+
+}
+
+var errorMessageHandler=(errorMessage,res)=>{
+    return res.status(400).json({
+        error:errorMessage
+    })
+}
+
+exports.updateProduct =(req,res) =>{
+ var formidable = new formidable.IncomingForm();
+ formidable.keepExtensions=true;
+
+ formidable.parse(req, (err,fields,file)=>{
+     if(err){
+        return errorMessageHandler("error occur in the image");
+     }
+
+     const product= req.product;
+     product= _.extend(product,fields);
+
+     if(file.photo){
+         if(file.photo.size>3000000){
+
+            return errorMessageHandler("Photo size is too big!");
+
+         }
+         product.photo.data=fs.readFileSync(file.photo.path);
+         product.photo.contentType=file.photo.type;
+     }
+     product.save((err,product)=>{
+         if(err){
+             return errorMessageHandler("value not saved in db")
+         }
+         else{
+             return res.json(product);
+         }
+     })
+
+ })
+
+}
+
+
+exports.deleteProduct = (req,res) =>{
+    let product= req,product;
+    product.remove((err,product)=>{
+        if(err){
+            return errorMessageHandler("Product not be deleted")
+        }
+        return res.json({message:"product is deleted",product});
+    })
 }
