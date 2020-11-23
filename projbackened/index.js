@@ -12,6 +12,7 @@ const authRouters= require('./routers/auth');
 const userRouters= require('./routers/user');
 const categoryRouters= require('./routers/category');
 const productRouters= require('./routers/product');
+const orderRouters = require('./routers/order');
 
 
 //DB Connect
@@ -39,6 +40,8 @@ app.use("/api",userRouters);
 app.use("/api",categoryRouters);
 
 app.use("/api",productRouters);
+
+app.use("/api",orderRouters);
 
 app.listen(port,()=>{
   console.log(`server is up and running ${port}`)

@@ -154,7 +154,7 @@ exports.updateProduct =(req,res) =>{
 
 
 exports.deleteProduct = (req,res) =>{
-    let product= req,product;
+    let product= req.product;
     product.remove((err,product)=>{
         if(err){
             return errorMessageHandler("Product not be deleted")
@@ -184,15 +184,12 @@ exports.updateStock=(req,res,next)=>{
              }
          }
         }
-
-
     });
 
     Product.bulkWrite(operations,{},(err,products)=>{
           if(err){
               errorMessageHandler("stock not updated");
           }
-         
           next();
     })
 
