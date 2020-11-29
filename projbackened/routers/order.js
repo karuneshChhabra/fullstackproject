@@ -16,7 +16,7 @@ router.post("/order/create/:orderById/:userId", isSignedIn, isAuthenticated, pus
 router.put("/update/order/:orderById/status/:userId", isSignedIn, isAuthenticated, isAdmin, updateStatus);
 
 
-router.get("/order/status/:userId",isSignedIn,isAuthenticated,isAdmin,getOrderStatus)
+router.get("/order/status/:userId", isSignedIn, isAuthenticated,isAdmin,getOrderStatus)
 
 router.get("/order/all/:userId",isSignedIn,isAuthenticated,isAdmin,getAllOrders)
 
