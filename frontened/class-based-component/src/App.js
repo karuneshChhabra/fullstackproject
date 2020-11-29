@@ -64,10 +64,9 @@ class App extends React.Component{
              <div className="container">
                 <div>
                       <input type="text" className="input-text" placeholder="write to do"
-                      value={this.state.newItem}
-                      onChange={e=>this.valueUpdate(e.target.value)} />
+                        value={this.state.newItem} onChange={e=>this.valueUpdate(e.target.value)} />
                       <button  className="add-btn" onClick={()=>this.addItem(this.state.newItem)}
-                      disabled={!this.state.newItem.length>0}
+                         disabled={!this.state.newItem.length>0}
                       >Submit</button>
                 </div>
              
@@ -86,10 +85,7 @@ class App extends React.Component{
                    })
                    }
                    <li>
-                    <input type="checkbox" className="input-text" 
-                        
-                        />
-
+                    <input type="checkbox" className="input-text"/>
                         Remove the values
                      <button  className="delete-btn">Delete</button>
                    </li>
