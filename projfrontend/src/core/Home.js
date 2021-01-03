@@ -1,7 +1,12 @@
+import "../styles.css";
+import {API} from "../backened";
+import Base from "./Base";
+
 const Home = () => {
-    return ( <div>
-        <h1>Home page</h1>
-    </div> );
+    console.log("API is:"+ API);
+    return ( <Base title="Home Page">
+        <h1 className="text-white">Hello Front End</h1>
+    </Base> );
 }
  
 export default Home;
