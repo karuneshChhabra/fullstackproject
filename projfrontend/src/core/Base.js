@@ -1,4 +1,5 @@
 import { Children } from "react";
+import Menu from "./Menu";
 
 const Base = ({
     title="My title",description="My Description",
@@ -7,6 +8,7 @@ const Base = ({
     })  =>{
     return (
         <div>
+            <Menu></Menu>
             <div className="container-fluid">
                 <div className="jumbotron text-white text-center">
                     <h2 className="display-4">{title}</h2>
@@ -16,7 +18,7 @@ const Base = ({
             </div>
             
             <footer className="footer bg-dark mt-auto py-3">
-                <div className="container-fluid bg-sucess text-white text-center">
+                <div className="container-fluid bg-success text-white text-center">
                     <p>
                         <h4>If you have any question please reach out!</h4>
                         <button className="btn btn-warning btn-lg">Contact Us</button>

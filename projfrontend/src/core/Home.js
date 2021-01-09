@@ -4,8 +4,16 @@ import Base from "./Base";
 
 const Home = () => {
     console.log("API is:"+ API);
-    return ( <Base title="Home Page">
-        <h1 className="text-white">Hello Front End</h1>
+    return ( <Base title="Home Page" description="welcome to T shirt store">
+       <div className="row">
+           <div className="col-4">
+               <button className="btn btn-success">
+                
+               </button>
+
+           </div>
+
+       </div>
     </Base> );
 }
  
