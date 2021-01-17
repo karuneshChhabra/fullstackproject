@@ -7,9 +7,7 @@ const Home = () => {
     return ( <Base title="Home Page" description="welcome to T shirt store">
        <div className="row">
            <div className="col-4">
-               <button className="btn btn-success">
-                
-               </button>
+               
 
            </div>
 
