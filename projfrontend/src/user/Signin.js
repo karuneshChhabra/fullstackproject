@@ -6,8 +6,8 @@ import {signin,isAuthenticate,authenticate} from "../auth/helper";
 
 const SignIn = () => {
     const [values,setValues]=useState({
-        email:"",
-        password:"",
+        email:"kavish@gmail.com",
+        password:"12345678",
         loading:false,
         didRedirect:false,
         error:""
@@ -24,6 +24,7 @@ const SignIn = () => {
         event.preventDefault();
         setValues({...values,error:false,loading:true});
         signin({email,password}).then(response=>{
+            console.log(response)
             if(response.error){
                 setValues(
                     {...values,error:JSON.stringify(response.error),
@@ -50,9 +51,13 @@ const SignIn = () => {
     const performRedirect=()=>{
       if(didRedirect){
           if(user && user.role==1){
-
+            return(
+            <Redirect to="/dashboard"></Redirect>
+            )
           }else{
-
+            return(
+            <Redirect to="/dashboard"></Redirect>
+            )
           }
           if(isAuthenticate()){
             return(
@@ -67,12 +72,10 @@ const SignIn = () => {
         
     const loadingCase=()=>{
         // if(success){
-        return ( <div className="row">
-        <div className="col-md-6 offset-sm-3 text-left">
-            <div className="alert alert-success" style={{display:loading?"":"none"}}>
-                Loading...<Link to="/signin">Sign In</Link>
-            </div>
-            </div>
+        return  loading && (<div className="alert alert-info">
+             <h2>       Loading...
+             </h2>
+           
         </div>)
         // }
     }
@@ -82,7 +85,7 @@ const SignIn = () => {
             return(
             <div className="row">
                 <div className="col-md-6 offset-sm-3 text-left">
-                        <div className="alert alert-failure" style={{display:error?"":"none"}}>   error:{error}</div>
+                        <div className="alert alert-danger" style={{display:error?"":"none"}}>   error:{error}</div>
                 </div>
             </div>
             );
@@ -92,7 +95,6 @@ const SignIn = () => {
     const signInForm=() =>{
         return(
             <div className="row">
-                 {failureCase()} 
                 <div className="col-md-6 offset-sm-3 text-left">
                     <form>
                         <div className="form-group">
@@ -115,8 +117,10 @@ const SignIn = () => {
 
     return ( 
     <Base title="Sign In" description="Sign in Page">
-      
+       {loadingCase()}
+       {failureCase()}
        {signInForm()}
+       {performRedirect()}
     </Base>);
 }
  
