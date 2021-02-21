@@ -1,6 +1,6 @@
 import Base from "../core/Base"
 import {useState} from "react";
-import {Link,Redirect} from "react-router-dom";
+import {Redirect} from "react-router-dom";
 import {signin,isAuthenticate,authenticate} from "../auth/helper";
 
 
@@ -50,22 +50,23 @@ const SignIn = () => {
 
     const performRedirect=()=>{
       if(didRedirect){
-          if(user && user.role==1){
+          if(user && user.role===1){
             return(
-            <Redirect to="/dashboard"></Redirect>
+                <Redirect to="/admin/dashboard"></Redirect>
             )
           }else{
             return(
-            <Redirect to="/dashboard"></Redirect>
+                <Redirect to="/user/dashboard"></Redirect>
             )
           }
+      }  
           if(isAuthenticate()){
             return(
                 <Redirect to="/"></Redirect>
             )
           }
           
-      }
+      
 
     }
 
