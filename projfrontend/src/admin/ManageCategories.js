@@ -2,13 +2,13 @@ import React,{useState} from "react";
 import {Link} from "react-router-dom";
 import Base from "../core/Base";
 
-const ManageProducts = () => {
+const ManageCategories = () => {
 
     return(
-        <Base className="container bg-success p-4">
+        <Base title="Manage Category" className="container bg-success p-4">
             <div className="row bg-success rounded">
                 <div className="col-md-8 offset-md-2">
-                    Manage Products
+                    Manage Categories
                 </div>
             </div>
         </Base>
@@ -17,4 +17,4 @@ const ManageProducts = () => {
 
 }
 
-export default ManageProducts;
+export default ManageCategories;

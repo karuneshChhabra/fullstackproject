@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { isAuthenticate } from "../auth/helper";
 import Base from "../core/Base";
 
-const AdminDashboard=()=>{
+const AdminDashboard = ()=>{
 
  const {user:{name,email,role}}=isAuthenticate();  
    
@@ -16,6 +16,9 @@ const AdminDashboard=()=>{
                 <Link to="/admin/create/category" className="nav-link text-success" >Create Category</Link>
              </li>
              <li className="list-group-item">
+                <Link to="/admin/categories" className="nav-link text-success" >Manage Category</Link>
+             </li>
+             <li className="list-group-item">
                 <Link to="/admin/create/product" className="nav-link text-success" >Create Product</Link>
              </li>
              <li className="list-group-item">
@@ -26,13 +29,13 @@ const AdminDashboard=()=>{
              </li>
           </ul>
        </div>
-    )
- }  
+    );
+ };
    
  const rightPanel=()=>{
    return(
       <div className="card mb-4">
-          <h4 className="card-header"> Admin Information</h4>
+          <h4 className="card-header">Admin Information</h4>
           <ul className="list-group">
              <li className="list-group-item">
                 <span className="badge badge-success text-success mr-2">Name: </span> {name}
@@ -40,6 +43,9 @@ const AdminDashboard=()=>{
              <li className="list-group-item">
                 <span className="badge badge-success  text-success mr-2">Email ID: </span>{email}
              </li>
+               <li className="list-group-item">
+                         <span className="badge badge-danger">Admin Area</span>
+              </li>
           </ul>
       </div>    
    )
@@ -59,6 +65,6 @@ const AdminDashboard=()=>{
        </Base>
    )
 
-}
+};
 
 export default AdminDashboard;
