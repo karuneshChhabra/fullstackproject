@@ -2,7 +2,7 @@ import {API} from "../../backened";
 
 //category Calls
 
-export const getAllCategories=(productId)=>{
+export const getAllCategories=()=>{
     return fetch(`${API}/categories`,{
         method:"GET"    
     }).then(response =>{
@@ -31,6 +31,16 @@ export const createCategory=(userId,token,category)=>{
 
 }
 
+export const getCategoryById=(categoryId)=>{
+    return fetch(`${API}/category/${categoryId}`,{
+        method:"GET"    
+    }).then(response =>{
+        return response.json();
+    }).catch(err=>
+        console.log(err)
+    );
+}
+
 export const updateCategory=(userId,token,categoryId,category)=>{
     return fetch(`${API}/category/${categoryId}/${userId}`,{
         method:"PUT",
@@ -48,15 +58,14 @@ export const updateCategory=(userId,token,categoryId,category)=>{
 
 }
 
-export const deleteCategory=(userId,token,categoryId,category)=>{
+export const deleteCategory=(userId,token,categoryId)=>{
     return fetch(`${API}/category/${categoryId}/${userId}`,{
         method:"DELETE",
         headers:{
             Accept:"application/json",
             "Content-Type":"application/json",
             Authorization:`Bearer ${token}`
-        },
-        body:category      
+        },     
     }).then(response =>{
         return response.json();
     }).catch(err=>
@@ -89,7 +98,6 @@ export const updateProduct=(userId,token,productId,product)=>{
         method:"PUT",
         headers:{
             Accept:"application/json",
-            "Content-Type":"application/json",
             Authorization:`Bearer ${token}`
         },
         body:product      
@@ -101,15 +109,14 @@ export const updateProduct=(userId,token,productId,product)=>{
 
 }
 
-export const deleteProduct=(userId,token,productId,product)=>{
+export const deleteProduct=(userId,token,productId)=>{
     return fetch(`${API}/product/${productId}/${userId}`,{
         method:"DELETE",
         headers:{
             Accept:"application/json",
             "Content-Type":"application/json",
             Authorization:`Bearer ${token}`
-        },
-        body:product      
+        }    
     }).then(response =>{
         return response.json();
     }).catch(err=>
@@ -127,7 +134,7 @@ export const getProductById=(productId)=>{
     );
 }
 
-export const getAllProducts=(productId)=>{
+export const getAllProducts=()=>{
     return fetch(`${API}/products`,{
         method:"GET"    
     }).then(response =>{

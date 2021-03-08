@@ -1,5 +1,6 @@
 import "../styles.css";
 import {API} from "../backened";
+import React, { useEffect, useState } from "react";
 import Base from "./Base";
 
 const Home = () => {

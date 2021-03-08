@@ -85,9 +85,7 @@ const AddProduct=()=>{
       var formValue=formData;
       formValue.set(key,value);
       console.log(formValue);
-      setValues({...values,[key]:value,formData:formValue});
-
-      
+      setValues({...values,[key]:value,formData:formValue}); 
   }
 
 
@@ -138,6 +136,7 @@ const AddProduct=()=>{
           className="form-control"
           placeholder="Category"
         >
+        <option>Select</option>
          {categories && categories.map((cat,index)=>(
               <option key={index} value={cat._id}>{cat.name}</option> 
          ))}   
@@ -182,7 +181,7 @@ const AddProduct=()=>{
          <div className="row bg-success rounded">
                  <div className="mt-5">
                     <Link className="btn btn-sm btn-dark mb-3" to="/admin/dashboard">
-                    Back Button
+                    Admin Home
                     </Link>
 
                 </div>

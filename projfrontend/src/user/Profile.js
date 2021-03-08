@@ -8,8 +8,7 @@ const Profile=()=>{
             This is profile Page
          </h1>
        </Base>
-   )
-
-}
+   );
+};
 
 export default Profile;

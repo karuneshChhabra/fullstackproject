@@ -3,7 +3,6 @@ import {isAuthenticate, signout} from "../auth/helper";
 import {Fragment} from "react";
 
 
-
 const currentTab=(history,path)=>{
     if(history.location.pathname===path){
         return {color:"#2ecc72"}
