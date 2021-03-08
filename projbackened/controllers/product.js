@@ -4,10 +4,12 @@ const formidable= require("formidable");
 const fs = require("fs");
 
 exports.getProductById=(req,res, next, productId)=>{
-   
-    Product.findOne({_id:productId}).populate("category").exec((err,product)=>{
-       if(err || !product){
-           res.status(400).json({
+
+
+    Product.findOne({_id:productId}).exec((err,product)=>{
+    
+        if(err || !product){
+          return  res.status(400).json({
                error:"Product not found"
            })
        }
@@ -16,7 +18,7 @@ exports.getProductById=(req,res, next, productId)=>{
 
     });
     
-}
+};
 
 exports.getProduct=(req,res)=>{
     req.product.photo=undefined;
@@ -24,7 +26,7 @@ exports.getProduct=(req,res)=>{
 }
 
 exports.createProduct=(req, res) =>{
-    var form=  new formidable.IncomingForm();
+    let form=  new formidable.IncomingForm();
     form.keepExtensions=true;
 
     form.parse(req,(err,fields,file)=>{
@@ -36,8 +38,6 @@ exports.createProduct=(req, res) =>{
 
    
     const {title,description,price,category,stock}= fields;
-
-
 
      if(!title || !description || !price || !category || !stock || !file.photo ){
          return res.status(400).json({
@@ -93,6 +93,7 @@ exports.photo=(req,res,next)=>{
 }
 
 exports.getAllProducts = (req,res) =>{
+    console.log(req);
     let limit= req.query.limit?parseInt(req.query.limit):8;
     let sortBy=req.query.sortBy?req.query.sortBy:"_id";
 
@@ -119,15 +120,17 @@ var errorMessageHandler=(errorMessage,res)=>{
 }
 
 exports.updateProduct =(req,res) =>{
- var formidable = new formidable.IncomingForm();
- formidable.keepExtensions=true;
+ console.log("updateProduct");
+ let form = new formidable.IncomingForm();
+ form.keepExtensions=true;
+ 
 
- formidable.parse(req, (err,fields,file)=>{
+ form.parse(req, (err,fields,file)=>{
      if(err){
         return errorMessageHandler("error occur in the image");
      }
 
-     const product= req.product;
+     let product= req.product;
      product= _.extend(product,fields);
 
      if(file.photo){

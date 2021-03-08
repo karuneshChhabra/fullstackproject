@@ -28,12 +28,12 @@ exports.signin=(req,res)=>{
     User.findOne({email},(err,user)=>{ 
       if(err || !user){
           return res.status(400).json({
-              message:"User email doesn't exist"
+              error:"User email doesn't exist"
           })
       }
     if (!user.authenticate(password)){
         return res.status(400).json({
-            message:"Email and password does not match"
+            error:"Email and password does not match"
         })
     }
 
@@ -62,6 +62,8 @@ next();
 
 //custom middleware
 exports.isAuthenticated=(req,res,next)=>{
+  console.log("auth");
+
  let checker= req.profile && req.auth && req.profile._id==req.auth._id;
  if(!checker){
      return res.status(403).json({

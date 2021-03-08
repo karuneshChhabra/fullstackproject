@@ -11,6 +11,7 @@ exports.getUserById=(req,res,next,userId)=>{
        }
 
        req.profile=user;
+       console.log(user);
        next();
     });
 

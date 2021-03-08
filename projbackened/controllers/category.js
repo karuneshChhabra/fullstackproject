@@ -14,22 +14,24 @@ exports.getCategoryById=(req, res, next, categoryId)=>{
     });
 }
 
-var errorCase=(errorMessage)=>{
+var errorCase=(res,errorMessage)=>{
     return res.status(400).json({error:errorMessage})
 }
 
-exports.createCategory=(req,res)=>{
+exports.createCategory=(req, res)=>{
     var category= new Category(req.body);
     category.save((err, category)=>{
         if(err || !category){
-         return errorCase("Category not saved in db.")
+         return errorCase(res,"Category not saved in db.")
         }
-        return res.json(category);
-
-        
+        return res.json(category);   
     })
 
 }
+
+exports.getCategory = (req, res) => {
+  return res.json(req.category);
+};
 
 exports.updateCategory=(req,res)=>{
     const category = req.category;
@@ -37,7 +39,7 @@ exports.updateCategory=(req,res)=>{
 
     category.save((err, updatedCategory) => {
         if(err || !updatedCategory ){
-            return errorCase("Category not updated  in db.");
+            return errorCase(res, "Category not updated  in db.");
         }
         updatedCategory.createdAt=undefined;
         updatedCategory.updatedAt=undefined;
@@ -53,7 +55,7 @@ exports.deleteCategory=(req,res)=>{
     var category = req.category;
     category.remove((err,category)=>{
       if(err || !category){
-          return errorCase("Category not be deleted in db.");
+          return errorCase(res, "Category not be deleted in db.");
       }
       return res.json(category);
 
@@ -63,10 +65,12 @@ exports.deleteCategory=(req,res)=>{
 
 
 exports.getAllCategories=(req,res)=>{
+     console.log("categories");
     Category.find().exec((err,categories)=>{
         if(err || !categories){
             return res.status(400).json({error:"Category not found"})
         }
+        console.log(categories);
         return res.json(categories);
     });
 }
