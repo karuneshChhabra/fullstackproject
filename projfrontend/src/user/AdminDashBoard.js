@@ -5,7 +5,7 @@ import Base from "../core/Base";
 
 const AdminDashboard = ()=>{
 
- const {user:{name,email,role}}=isAuthenticate();  
+ const {user:{name,email}}=isAuthenticate();  
    
  const leftPanel=()=>{
     return(
