@@ -20,6 +20,10 @@ const Cart =()=>{
         setProducts(productsList)
        
     },[reload])
+
+    const payment=token =>{
+      console.log(payment);
+    }
     
 
     return(
@@ -40,7 +44,7 @@ const Cart =()=>{
           }
       </div>   
       <div className="col-6" > 
-            <h2><StripCheckout products={products} key="index" 
+            <h2><StripCheckout products={products} 
               reload={reload}
               setReload={setReload}/></h2>
       </div>    

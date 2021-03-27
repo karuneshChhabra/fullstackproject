@@ -76,7 +76,7 @@ const AddCategory=()=>{
             {errorCase()}
             <div className="form-group">
                 
-                <p className="lead text-white">Enter Category</p></div>
+            <p className="lead text-white">Enter Category</p></div>
             <input className="form-control my-3" type="text"
             autoFocus
             value={name}
@@ -109,7 +109,6 @@ const AddCategory=()=>{
        </div>
      </Base>
  )
-
 
 }
 
