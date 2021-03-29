@@ -25,12 +25,15 @@ exports.makePayment =(req,res) =>{
     }).then(customer=>{
     
         
-        return stripe.charges.create({
+         stripe.charges.create({
             amount:amount*100,
             currency:"usd",
             customer:customer.id,
             description:"Selling T shirt",
-            receipt_email:token.email
+            receipt_email:token.email,
+            shipping:{
+                name:token.card.name
+            }
             
 
         

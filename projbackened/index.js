@@ -14,6 +14,7 @@ const categoryRouters= require('./routers/category');
 const productRouters= require('./routers/product');
 const orderRouters = require('./routers/order');
 const stripeRouters = require("./routers/stripePayment")
+const brainTreeRouters =require("./routers/brainTreePayment")
 
 
 //DB Connect
@@ -40,6 +41,7 @@ app.use("/api",categoryRouters);
 app.use("/api",productRouters);
 app.use("/api",orderRouters);
 app.use("/api",stripeRouters);
+app.use("/api",brainTreeRouters);
 
 app.listen(port,()=>{
   console.log(`server is up and running ${port}`)

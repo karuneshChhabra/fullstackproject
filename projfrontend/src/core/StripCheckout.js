@@ -3,13 +3,12 @@ import { authenticate, isAuthenticate } from "../auth/helper";
 import  {paymentGateway}  from "./helper/coreapicalls"
 import   StripeCheckout   from "react-stripe-checkout";
 import { STRIPEPUBLICKEY } from "../backened";
+import { bTreePayment, getToken } from "./helper/brainTreeCalls";
 
 
 const StripCheckout =({products,reload=undefined,setReload=f=>f})=>{
-    console.log(STRIPEPUBLICKEY)
-
+   
     
-
     const userid =isAuthenticate() && isAuthenticate().user._id;
     const token =isAuthenticate() && isAuthenticate().token;
     
@@ -44,6 +43,9 @@ const StripCheckout =({products,reload=undefined,setReload=f=>f})=>{
                 
             <button className="btn btn-success">Pay with stripe</button>
             </StripeCheckout>
+
+            <br/>
+            <button className="btn btn-success">Pay with BrainTree</button>
         </div>):
         (<Link to="/signin">
             <button className="btn btn-warning">Sign In</button>
