@@ -56,8 +56,22 @@ const PaymentB = ({products, setReload=f=>f, reload=undefined}) => {
                 console.log("success");
                 setInfo({...info,loading:false});
                 emptyCart(()=>{
+                    const order ={
+                        products:products,
+                        transaction_id:response.id,
+                        amount:response.amount
+                       
+                        
+                    }
                     console.log("empty card");
+                   orderCreated(userId,token,order).then(response=>{
+
+                    console.log("order success");
+                    console.log(response);
+
+                   }).catch(err=>console.log(err));
                 })
+                
                 setReload(!reload);
                 }
 

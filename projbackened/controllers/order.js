@@ -1,4 +1,4 @@
-const {Order,product} = require("../models/order");
+const {Order,productcart} = require("../models/order");
 
 
 var errorMessageHandler=(errorMessage,res)=>{
@@ -14,7 +14,7 @@ exports.createOrder=(req, res)=>{
       if(err){
         return  errorMessageHandler("order is not placed Successfully");
       }
-      return res.json(order);
+      return res.json({'data':order});
     });
 }
 

@@ -11,7 +11,7 @@ exports.getUserById=(req,res,next,userId)=>{
        }
 
        req.profile=user;
-       console.log(user);
+     
        next();
     });
 
@@ -82,7 +82,7 @@ exports.userPurchaseList=(req,res)=>{
      })
 }
 
-exports.pushOrderInPurchaseList=(req,res)=>{
+exports.pushOrderInPurchaseList=(req,res,next)=>{
       let purchases=[];
       req.body.order.products.forEach(product => {
  
