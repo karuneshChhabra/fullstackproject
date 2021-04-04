@@ -8,9 +8,9 @@ const router= express.Router();
 
 router.param("userId",getUserById);
 
-router.get("/getToken/:userId",isSignedIn, isAuthenticated, getToken);
+router.get("/getToken/:userId", isSignedIn, isAuthenticated, getToken);
 
-router.post("/BPayment/:usedId", isSignedIn, isAuthenticated, paymentBGateway);
+router.post("/BPayment/:userId", isSignedIn, isAuthenticated, paymentBGateway);
 
 
 module.exports = router;

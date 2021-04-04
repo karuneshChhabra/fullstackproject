@@ -9,7 +9,7 @@ import { bTreePayment, getToken } from "./helper/brainTreeCalls";
 const StripCheckout =({products,reload=undefined,setReload=f=>f})=>{
    
     
-    const userid =isAuthenticate() && isAuthenticate().user._id;
+    const userid =isAuthenticate() && isAuthenticate().user && isAuthenticate().user._id;
     const token =isAuthenticate() && isAuthenticate().token;
     
 
@@ -44,8 +44,7 @@ const StripCheckout =({products,reload=undefined,setReload=f=>f})=>{
             <button className="btn btn-success">Pay with stripe</button>
             </StripeCheckout>
 
-            <br/>
-            <button className="btn btn-success">Pay with BrainTree</button>
+           
         </div>):
         (<Link to="/signin">
             <button className="btn btn-warning">Sign In</button>

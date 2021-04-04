@@ -25,10 +25,11 @@ export const getValuesFromlocalStorage =()=>{
 
 }
 
-export const emptyCart =() =>{
+export const emptyCart =(next) =>{
   if(typeof window != undefined && localStorage.getItem("card")){
      
      localStorage.removeItem("card");
+     next();
      
   }
 }

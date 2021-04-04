@@ -1,26 +1,40 @@
 import { API } from "../../backened"
 
-export const getToken=(token,userId)=>{
+export const getToken= async (token,userId)=>{
 
     
-    return fetch(`${API}/getToken/:userId`,{
+    const response =  (await fetch(`${API}/getToken/${userId}`,{
         method:'GET',
         headers:{
-            "Content-Type":"application/json",
-            Accept:"application/json",
             Authorization:`Bearer ${token}`
 
         }
-    }).then(response=>{
-        console.log(response);
-    }).catch(err=> console.log(err));
+    }).then(res=>{
+        console.log(res);
+        const values=  res.json();
+        console.log(values);
+        return values;
+    }));
+
+    console.log(response);
+
+    const clientToken = await response.data;
+    console.log(clientToken);
+
+
+    
+       //const values=await response.data ;
+      // console.log(values);
+        return clientToken;
+    
+
 
 }
 
-export const bTreePayment = (token,userId,paymentInfo)=>{
+export const bTreePayment = async (token,userId,paymentInfo)=>{
    
    
-    return fetch(`${API}/BPayment/${userId}`,{
+    const transactionResponse= (await fetch(`${API}/BPayment/${userId}`,{
         method:'POST',
         headers:{
             "Content-Type":"application/json",
@@ -30,7 +44,16 @@ export const bTreePayment = (token,userId,paymentInfo)=>{
         },
         body: JSON.stringify(paymentInfo)
     }).then(response=>{
-        console.log(response);
-    }).catch(err=> console.log(err));
+        var values=response.json();
+        
+        console.log(values);
+        return values;
+       
+    }).catch(err=> console.log(err)));
+    
+    console.log(transactionResponse);
+    const transaction= await transactionResponse.data;
+    console.log(transaction);
+    return transaction;
 
 }

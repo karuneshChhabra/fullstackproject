@@ -3,6 +3,7 @@ import Base from "./Base";
 import Card from "./Card";
 
 import {getValuesFromlocalStorage } from "./helper/cardapicalls";
+import PaymentB from "./PaymentB";
 import StripCheckout from "./StripCheckout";
 
 
@@ -47,6 +48,7 @@ const Cart =()=>{
             <h2><StripCheckout products={products} 
               reload={reload}
               setReload={setReload}/></h2>
+            <PaymentB  products={products} setReload={setReload} />
       </div>    
 
        </div>
